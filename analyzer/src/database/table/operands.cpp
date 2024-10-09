@@ -350,7 +350,8 @@ std::string repr(llvm::Type* type, TypeSet seen) {
     } else if (type->isPPC_FP128Ty()) {
       return "ppc_fp128_t";
     } else {
-      throw FrontendError("unsupported llvm floating point type");
+      type->print();
+      throw FrontendError("repr: unsupported llvm floating point type");
     }
   } else if (auto ptr_type = llvm::dyn_cast< llvm::PointerType >(type)) {
     return repr(ptr_type->getPointerElementType(), seen) + "*";
