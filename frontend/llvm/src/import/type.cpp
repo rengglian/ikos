@@ -119,7 +119,8 @@ ar::Type* TypeWithSignImporter::translate_type(llvm::Type* type,
   } else if (type->isFunctionTy()) {
     return this->translate_function_type(type, preferred);
   } else {
-    throw ImportError("unsupported llvm type");
+    type->print();
+    throw ImportError("TypeWithSignImporter::translate_type: unsupported llvm type");
   }
 }
 
@@ -181,7 +182,8 @@ ar::FloatType* TypeWithSignImporter::translate_floating_point_type(
   } else if (type->isPPC_FP128Ty()) {
     ar_type = ar::FloatType::get(this->_context, ar::PPC_FP128);
   } else {
-    throw ImportError("unsupported llvm floating point type");
+    type->print();
+    throw ImportError("TypeWithSignImporter::translate_floating_point_type: unsupported llvm floating point type");
   }
 
   this->store_translation(type, preferred, ar_type);
